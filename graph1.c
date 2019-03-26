@@ -51,9 +51,8 @@ void createNewNode(struct vertex *v,struct vertex *found,int i)
         temp->next=new;
     }
 }
-void display(struct vertex *v,int n)
+void displayList(struct vertex *v,int n)
 {
-    int adj[n][n];
     for(int i=0;i<n;i++)
     {
         struct edge *temp=(v+i)->ptr;
@@ -64,6 +63,37 @@ void display(struct vertex *v,int n)
             printf("%c,Weight=%d\t",temp->point->name,temp->weight);
             temp=temp->next;
         }
+    }
+}
+void adjacencyMatrix(struct vertex *v,int n)
+{
+    int adj[n][n];
+    for(int i=0;i<n;i++)
+    {
+        for(int j=0;j<n;j++)
+        {
+            adj[i][j]=0;
+        }
+    }
+    int j;
+    for(int i=0;i<n;i++)
+    {
+        struct edge *temp=(v+i)->ptr;
+        while(temp!=NULL)
+        {
+            struct vertex *p=isFound(temp->point->name,n,v);  
+            j=((p-v)/sizeof(struct vertex))-1;
+            temp=temp->next;
+            adj[i][j]=temp->weight;
+        }
+    }
+    for(int i=0;i<n;i++)
+    {
+        for(int k=0;k<n;k++)
+        {
+            printf("%d\t",adj[i][k]);
+        }
+        printf("\n");
     }
 }
 int main()
@@ -107,5 +137,6 @@ int main()
         }
     }
     printf("\nDisplay the graph\n");
-    display(v,n);
+    displayList(v,n);
+    adjacencyMatrix(v,n);
 }
