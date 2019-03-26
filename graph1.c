@@ -62,7 +62,7 @@ int main()
     printf("Enter the vertex names\n");
     for(int i=0;i<n;i++)
     {
-        scanf("%d",&v[i].name);
+        scanf("%c",&v[i].name);
         v[i].ptr=NULL;
     }
     printf("\nEnter the edges for the corresponding vertex type\n");
@@ -71,7 +71,7 @@ int main()
         printf("For vertex %c",v[i].name);
         do
         {
-            scanf("%c",&vname);
+            scanf(" %c",&vname);
             struct vertex *found=isFound(vname,n,v);
             if(found!=NULL)
             {
@@ -83,7 +83,7 @@ int main()
                 printf("The vertex does not exist");
             }
             printf("Want to add?");
-            scanf("%c",&choice);
+            scanf(" %c",&choice);
             
         }while(choice=='y');
     }
