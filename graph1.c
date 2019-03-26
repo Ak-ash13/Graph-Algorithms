@@ -21,7 +21,7 @@ struct vertex * isFound(char vname,int n,struct vertex *v)
         if(v[i].name == vname)
         {
             flag=1;
-            return v;
+            return &v[i];
         }
     }
     if(flag==0)
@@ -51,6 +51,21 @@ void createNewNode(struct vertex *v,struct vertex *found,int i)
         temp->next=new;
     }
 }
+void display(struct vertex *v,int n)
+{
+    int adj[n][n];
+    for(int i=0;i<n;i++)
+    {
+        struct edge *temp=(v+i)->ptr;
+        printf("\nVertex:-%c\n",v[i].name);
+        printf("Its edges are:-");
+        while(temp!=NULL)
+        {
+            printf("%c,Weight=%d\t",temp->point->name,temp->weight);
+            temp=temp->next;
+        }
+    }
+}
 int main()
 {
     int n;
@@ -70,8 +85,11 @@ int main()
     for(int i=0;i<n;i++)
     {
         printf("For vertex %c",v[i].name);
-        do
+        printf("\nDo you want to add edge?");
+        scanf(" %c",&choice);
+        while(choice=='y')
         {
+            printf("Enter vertex name to be connected?\n");
             scanf(" %c",&vname);
             struct vertex *found=isFound(vname,n,v);
             if(found!=NULL)
@@ -83,9 +101,11 @@ int main()
             {
                 printf("The vertex does not exist");
             }
-            printf("Want to add?");
+            printf("Want to add more?");
             scanf(" %c",&choice);
             
-        }while(choice=='y');
+        }
     }
+    printf("\nDisplay the graph\n");
+    display(v,n);
 }
