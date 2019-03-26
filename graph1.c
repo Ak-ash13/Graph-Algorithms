@@ -29,6 +29,16 @@ struct vertex * isFound(char vname,int n,struct vertex *v)
         return NULL;
     }
 }
+int returnIndex(char c,int n,struct vertex *v)
+{
+    for(int i=0;i<n;i++)
+    {
+        if((v+i)->name == c)
+        {
+            return i;
+        }
+    }
+}
 void createNewNode(struct vertex *v,struct vertex *found,int i)
 {
     struct edge *new=(struct edge *)malloc(sizeof(struct edge));
@@ -81,8 +91,9 @@ void adjacencyMatrix(struct vertex *v,int n)
         struct edge *temp=(v+i)->ptr;
         while(temp!=NULL)
         {
-            struct vertex *p=isFound(temp->point->name,n,v);  
-            j=((p-v)/sizeof(struct vertex))-1;
+            // struct vertex *p=isFound(temp->point->name,n,v);  
+            // j=((p-v)/sizeof(struct vertex))-1;
+            j=returnIndex(temp->point->name,n,v);
             temp=temp->next;
             adj[i][j]=temp->weight;
         }
