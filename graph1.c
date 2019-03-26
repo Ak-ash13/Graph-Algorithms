@@ -20,6 +20,7 @@ struct vertex * isFound(char vname,int n,struct vertex *v)
     {
         if(v[i].name == vname)
         {
+            flag=1;
             return v;
         }
     }
@@ -62,7 +63,7 @@ int main()
     printf("Enter the vertex names\n");
     for(int i=0;i<n;i++)
     {
-        scanf("%c",&v[i].name);
+        scanf(" %c",&v[i].name);
         v[i].ptr=NULL;
     }
     printf("\nEnter the edges for the corresponding vertex type\n");
