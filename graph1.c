@@ -31,13 +31,26 @@ struct vertex * isFound(char vname,int n,struct vertex *v)
 }
 int returnIndex(char c,int n,struct vertex *v)
 {
+    int f=0;
+    int pos;
     for(int i=0;i<n;i++)
     {
         if((v+i)->name == c)
         {
-            return i;
+            f=1;
+            pos=i;
+            break;
         }
     }
+    if(f==1)
+    {
+        return pos;
+    }
+    else
+    {
+        return 0;
+    }
+    
 }
 void createNewNode(struct vertex *v,struct vertex *found,int i)
 {
@@ -86,23 +99,24 @@ void adjacencyMatrix(struct vertex *v,int n)
         }
     }
     int j;
+    struct edge *temp=NULL;
     for(int i=0;i<n;i++)
     {
-        struct edge *temp=(v+i)->ptr;
+        temp=(v+i)->ptr;
         while(temp!=NULL)
         {
             // struct vertex *p=isFound(temp->point->name,n,v);  
-            // j=((p-v)/sizeof(struct vertex))-1;
+            // j=((p-v)/sizeof(struct vertex));
             j=returnIndex(temp->point->name,n,v);
-            temp=temp->next;
             adj[i][j]=temp->weight;
+            temp=temp->next;
         }
-    }
+     }
     for(int i=0;i<n;i++)
     {
         for(int k=0;k<n;k++)
         {
-            printf("%d\t",adj[i][k]);
+            printf("%d ",adj[i][k]);
         }
         printf("\n");
     }
@@ -116,6 +130,7 @@ int main()
     scanf("%d",&n);
     struct vertex *v=(struct vertex *)malloc(n*sizeof(struct vertex));
     struct edge *e=(struct edge *)malloc(n*sizeof(struct edge));
+    int adj[n][n];
     printf("Enter the vertex names\n");
     for(int i=0;i<n;i++)
     {
@@ -126,7 +141,7 @@ int main()
     for(int i=0;i<n;i++)
     {
         printf("For vertex %c",v[i].name);
-        printf("\nDo you want to add edge?");
+        printf("\nDo you want to add edge?(y/n)");
         scanf(" %c",&choice);
         while(choice=='y')
         {
@@ -142,12 +157,12 @@ int main()
             {
                 printf("The vertex does not exist");
             }
-            printf("Want to add more?");
+            printf("Want to add more?(y/n)");
             scanf(" %c",&choice);
-            
         }
     }
     printf("\nDisplay the graph\n");
     displayList(v,n);
+    printf("\n");
     adjacencyMatrix(v,n);
 }
