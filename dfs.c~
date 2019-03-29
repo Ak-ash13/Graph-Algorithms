@@ -1,0 +1,46 @@
+#include<stdio.h>
+#include<stdlib.h>
+int visited[10];
+int M[10][10];
+int n;
+void DFS(int i);
+void main()
+{
+	int i,j;
+	printf("Enter Size of Matrix");
+	scanf("%d",&n);
+	
+	for(int i=0;i<n;i++)
+	{
+		for(int j=0;j<n;j++)
+		{
+			scanf("%d",&M[i][j]);
+		}
+	}
+	for(int i=0;i<n;i++)
+		{
+			visited[i]=0;
+		}
+	
+	DFS(0);
+}
+
+	void DFS(int i)
+	{	printf("NEw Elements printed");
+		printf("%d\t",i);
+		visited[i]=1;
+		for(int j=0;j<n;j++)
+		{
+			if(!visited[j] && M[i][j]==1)
+			{
+				DFS(j);
+			}
+		}
+	}
+	
+				
+		
+		
+		
+		
+		
