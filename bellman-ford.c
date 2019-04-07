@@ -81,10 +81,10 @@ void bellmanFord(int n,struct vertex *v,int number,struct edgeOrder *ed)
     {
         for(int i=0;i<number;i++)    
         {
-            if(ed[i].source->cost + ed[i].weight < ed[i].destination->cost)
+            if((ed+i)->source->cost + (ed+i)->weight < (ed+i)->destination->cost)
             {
-                ed[i].destination->cost=ed[i].source->cost + ed[i].weight;
-                ed[i].destination->preced=ed[i].source;
+                (ed+i)->destination->cost=(ed+i)->source->cost + (ed+i)->weight ;
+                (ed+i)->destination->preced=(ed+i)->source;
             }
         }
     }
@@ -92,10 +92,10 @@ void bellmanFord(int n,struct vertex *v,int number,struct edgeOrder *ed)
     int f=0;
     for(int i=0;i<number;i++)    
     {
-        if(ed[i].source->cost + ed[i].weight < ed[i].destination->cost)
+        if((ed+i)->source->cost + (ed+i)->weight < (ed+i)->destination->cost)
         {
-            ed[i].destination->cost=ed[i].source->cost + ed[i].weight;
-            ed[i].destination->preced=ed[i].source;
+            // ed[i].destination->cost=ed[i].source->cost + ed[i].weight;
+            // ed[i].destination->preced=ed[i].source;
             f=1;
             break;
         }
@@ -164,7 +164,7 @@ int main()
     printf("Enter the number of edge orders?");
     scanf("%d",&number);
     printf("Enter the relaxation edge order?\n");
-    struct edgeOrder ed[number];
+    struct edgeOrder *ed = (struct edgeOrder *)malloc(number*sizeof(struct edgeOrder));
     char tempsource,tempdest;
     for(int i=0;i<number;i++)
     {
@@ -182,9 +182,9 @@ int main()
             }
             if(temp!=NULL)
             {
-                ed[i].source=found;
-                ed[i].destination=temp->point;
-                ed[i].weight=temp->weight;
+                (ed+i)->source=found;
+                (ed+i)->destination=temp->point;
+                (ed+i)->weight=temp->weight;
             }
             else
             {
@@ -192,6 +192,11 @@ int main()
             }
             
         }
+        else
+        {
+            printf("Source vertex doesn't exist\n");
+        }
+        
     }
     printf("\nDisplay the graph\n");
     displayList(v,n);
