@@ -19,6 +19,20 @@ void printsp(int n, int d[], graph vname[])
   
 }    
 
+void printpath(int parent[],graph vname[],int k)
+{
+  if(parent[k]==-1)
+  {
+     printf("%c--->",vname[k].ch);
+     return;
+  }
+    
+  printpath(parent,vname,parent[k]);
+  
+  printf("%c--->",vname[k].ch);
+  
+} 
+
 int min(int n,int d[],_Bool s[])
 {
   int min = INT_MAX;
@@ -40,13 +54,16 @@ void dijkstra(int n,graph g[][n],int s,graph vname[])
 {
   int d[n];
   _Bool status[n];
+  int parent[n];
   
+  char des;
   int i,j,k;
   
   for(i=0;i<n;i++)
   {
     d[i]=INT_MAX;
     status[i]=false;
+    parent[i]=-1;
   }
   
   d[s]=0;
@@ -60,13 +77,39 @@ void dijkstra(int n,graph g[][n],int s,graph vname[])
     for(j=0;j<n;j++)
     {
       if(!status[j] && g[k][j].w && d[k]!=INT_MAX && d[k]+g[k][j].w < d[j])
-      d[j] = d[k]+g[k][j].w;
+       {
+          d[j] = d[k]+g[k][j].w;
+          parent[j]=k;
+       }   
     }
   
   }
   
-  printsp(n,d,vname); 
+ printsp(n,d,vname); 
   
+ printf("\n\n Enter destination:");
+ scanf(" %c",&des); 
+ 
+ for(i=0;i<n;i++)
+ {
+    if(des==vname[i].ch)
+    {
+      //s=i;
+      break;
+    }  
+ }
+ 
+ if(i==n)
+ {
+   printf("\n u have entered invalid destination!!!!!!\n Sayonara\n");
+   return;
+ }
+ else
+ { 
+   printf("\nThe shortest path is:\n"); 
+   printpath(parent,vname,i);
+   printf("\b\b\b\n");
+ }   
 }
 
 void main()
@@ -116,7 +159,8 @@ void main()
  printf("\n\n Enter source name:");
  scanf(" %c",&ch);
  
- for(int i=0;i<n;i++)
+ int i;
+ for(i=0;i<n;i++)
  {
     if(ch==vname[i].ch)
     {
@@ -124,7 +168,13 @@ void main()
       break;
     }  
  }
+ if(i==n)
+ {
+   printf("\n u have entered invalid source!!!!!!\n Sayonara\n");
+   return;
+ }
+ else  
+  dijkstra(n,g,s,vname);
  
- dijkstra(n,g,s,vname);
 }  
       
