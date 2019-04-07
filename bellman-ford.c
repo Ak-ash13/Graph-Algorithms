@@ -111,28 +111,28 @@ void bellmanFord(int n,struct vertex *v,int number,struct edgeOrder *ed)
         {
             printf("Distance of vertex %c from Source=%d\n",v[i].name,v[i].cost);
         }
-    }
-    char tempsource,tempdest;
-    printf("\nSelect your starting point?");
-    scanf(" %c",&tempsource);
-    printf("Enter destination from starting point?");
-    scanf(" %c",&tempdest);
-    char sequence[n];
-    int i=1;
-    struct vertex *found;
-    sequence[0]=tempdest;
-    found=isFound(tempdest,n,v);
-    while(found->preced !=NULL)
-    {
-        found=found->preced;
-        sequence[i]=found->name;
-        i++;
+        char tempsource,tempdest;
+        printf("\nSelect your starting point?");
+        scanf(" %c",&tempsource);
+        printf("Enter destination from starting point?");
+        scanf(" %c",&tempdest);
+        char sequence[n];
+        int i=1;
+        struct vertex *found;
+        sequence[0]=tempdest;
+        found=isFound(tempdest,n,v);
+        while(found->preced !=NULL)
+        {
+            found=found->preced;
+            sequence[i]=found->name;
+            i++;
 
-    }
-    for(int j=strlen(sequence)-1;j>=0;j--)
-    {
-        printf("%c->",sequence[j]); 
-    }
+        }
+        for(int j=strlen(sequence)-3;j>=0;j--)
+        {
+            printf("%c->",sequence[j]); 
+        }
+    } 
 
 }
 int main()
