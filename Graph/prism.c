@@ -89,9 +89,9 @@ void main()
 		printf("\nEnter the source to start the minimum spanning tree");
 		scanf("%d",&src);
 		visited[src]=1;
-		edges=n-1;
+		edges=0;
 		int total=0;
-		while(edges>0)
+		while(edges>n-1)
 		{
 			min=9999;
 			for( i=0;i<n;i++)
@@ -119,7 +119,7 @@ void main()
 			total=total+G[src][dest];
 				printf("\nEdges in Spanning tree is  %d---> %d \tand cost:  %d",src,dest,min);
 	
-			edges--;
+			edges++;
 		}
 		
 		printf("\nTotal Cost is %d\n",total);

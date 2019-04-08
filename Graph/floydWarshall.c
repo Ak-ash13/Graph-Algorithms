@@ -24,6 +24,7 @@ int main()
 
      }
      int b[n][n];
+     //copy to sol matrix
      for (int i = 0; i < n; i++)
      {
           for (int j = 0; j < n; j++)
@@ -38,7 +39,10 @@ int main()
      {
           for (int j = 0; j < n; j++)
           {
-               printf("%d ", b[i][j]);
+               if (b[i][j] == 99999)
+				printf("%s ", "INF");
+			else
+                    printf("%d ", b[i][j]);
           }
           printf("\n");
      }
@@ -49,21 +53,25 @@ int main()
           {
                for (int j = 0; j < n; j++)
                {
-                    b[i][j] = (a[i][j] < a[i][k]+a[k][j]) ? a[i][j]:a[i][k]+a[k][j];
+                   if( a[i][k] + a[k][j] < a[i][j] )
+                    {
+                         b[i][j]  = a[i][k] + a[k][j] ;
+                    } 
                }
 
           }
      }
 
      printf("\n\n");
+
      for (int i = 0; i < n; i++)
      {
           for (int j = 0; j < n; j++)
           {
-               if (dist[i][j] == 99999)
-				printf("%7s", "INF");
+               if (b[i][j] == 99999)
+				printf("%s   ", "INF");
 			else
-                    printf("%d ", b[i][j]);
+                    printf("%d   ", b[i][j]);
           }
           printf("\n");
      }
