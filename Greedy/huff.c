@@ -111,7 +111,7 @@ void printcode(heap* root,int arr[],int top)
   
   if(root->left==NULL && root->right==NULL)
   {
-    printf("%c: ",root->ch);
+    printf("  %c: ",root->ch);
     printarr(arr,top);
   }      
 
@@ -136,11 +136,8 @@ void Huffman(int n)
     create(temp);
   }
   
-  printf("\n");
-  display(size,node);
-  printf("\n");
-  
   int arr[50];
+  printf("\n\n Huffman Codes:\n");
   printcode(node[size-1],arr,0);
 }    
   
