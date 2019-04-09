@@ -1,0 +1,66 @@
+#include<stdio.h>
+#include<stdlib.h>
+
+typedef struct graph{
+	char src;
+	char dest;
+	int weight;
+	}graph;
+	void getvalues(int n,int edges,graph g[]);
+	void display(int n,int edges,graph g[]);
+	void arrange(int n,int edges,graph g[]);
+	
+	void main()
+	{
+		int n,edges;
+		
+		printf("\nEnter the no. of vertex");
+		scanf("%d",&n);
+		printf("\nenter the no. edges ");
+		scanf("%d",&edges);
+		graph g[edges];
+		printf("Input Graph");
+		getvalues(n,edges,g);
+		display(n,edges,g);
+		arrange(n,edges,g);
+	}
+	
+    void getvalues(int n,int edges,graph g[])
+	{	
+		//graph g[edges];
+		
+		for(int i=0;i<edges;i++)
+		{
+			printf("\nEnter sources,destination,and weight\n");
+			scanf(" %c %c %d",&g[i].src,&g[i].dest,&g[i].weight);
+		}
+	}
+	
+	void display(int n,int edges,graph g[])
+	{
+		for(int i=0;i<edges;i++)
+		{
+			printf("\n%c %c %d ",g[i].src,g[i].dest,g[i].weight);
+		}
+	}
+	
+	void arrange(int n,int edges,graph g[])
+	{
+		for(int i=0;i<edges;i++)
+		{
+			for(int j=0;j<edges-i-1;j++)
+			{
+				if(g[j].weight > g[j+1].weight)
+				{
+					graph temp=g[j];
+					g[j]=g[j+1];
+					g[j+1]=temp;
+				}
+			}
+		}
+		display(n,edges,g);
+	}
+
+	
+		
+	
