@@ -57,31 +57,13 @@ void swap(heap* *a, heap* *b)
     *b = temp; 
 }
 
-void min_heapify(int i,heap* node[])
-{
-  int largest=i;
-  int l=2*i+1;
-  int r=2*i+2;
-  if(l<size && node[l]<node[largest])
-  largest=l;
-  if(r<size && node[r]<node[largest])
-  largest=r;
-  if(largest!=i)
-  {
-	heap* temp=node[largest];
-	node[largest]=node[i];
-	node[i]=temp;
-	min_heapify(largest,node);
-  }
-}
-
 heap* Extract_min()
 {
   swap(&node[0],&node[size-1]);	
   heap* min=node[size-1];		
   size=size-1;		
   sort(size,node);
-  //min_heapify(0,node);
+  
   return min;
 }
 
